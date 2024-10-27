@@ -1,119 +1,130 @@
-/* styles.css */
-
-/* Global Styles */
-body {
-    font-family: Arial, sans-serif;
+/* Ensure the entire document takes up full height */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    background-color: #f6f1f1;
     margin: 0;
     padding: 0;
-    line-height: 1.6;
+    color: #ffffff;
 }
 
-header {
-    background: #004d00; /* Dark Green */
-    color: white;
-    padding: 10px 0;
+/* Main container, grows to take available space */
+main {
+    flex: 1;
 }
 
-header .logo h1 {
-    margin: 0;
-    padding: 0 20px;
+/* Footer stays at the bottom */
+footer {
+    background-color: #ffffff;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
 }
 
-nav {
+.footer-text {
+    color: black;
+}
+
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px;
+    background-color: #6610F2;
 }
 
-.nav-links {
-    list-style: none;
-    padding: 0;
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
 }
 
-.nav-links li {
-    display: inline;
-    margin-right: 20px;
-}
-
-.nav-links a {
-    color: white;
+.contact a {
+    color: #ffffff;
     text-decoration: none;
+    font-weight: bold;
     transition: color 0.3s;
 }
 
-.nav-links a:hover {
-    color: #ffcc00; /* Yellow */
+.contact a:hover {
+    color: #FD7E14;
 }
 
-/* Hero Section */
-.hero {
-    background: url('path/to/your/image.jpg') no-repeat center center/cover; /* Optional: add a background image */
-    height: 60vh;
+.main-heading {
+    text-align: center;
+    margin-top: 100px;
+    color: #000000;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.search-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    text-align: center;
+    margin-top: 20px;
+    position: relative;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.hero h2 {
-    font-size: 2.5rem;
-}
-
-/* About and Services Sections */
-.about, .services, .contact {
-    padding: 20px;
-    text-align: center;
-}
-
-.service-list {
+.search-auth-container {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
 }
 
-.service-item {
-    margin: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 300px;
+.auth-links {
+    text-align: right;
 }
 
-.service-item h3 {
-    color: #004d00; /* Dark Green */
+.auth-links a {
+    color: #6610F2;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: color 0.3s;
 }
 
-/* Contact Section */
-.contact form {
-    max-width: 500px;
-    margin: auto;
+.auth-links a:hover {
+    color: #FD7E14;
 }
 
-.contact input, .contact textarea {
+
+.search-input {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 10px 40px 10px 15px;
+    border: 2px solid #000000;
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
 }
 
-.contact button {
-    background: #004d00; /* Dark Green */
-    color: white;
+.search-button {
+    padding: 11px;
     border: none;
-    padding: 10px;
-    cursor: pointer;
+    border-radius: 0 20px 20px 0;
+    background-color: #FD7E14;
 }
 
-.contact button:hover {
-    background: #ffcc00; /* Yellow */
-}
-
-/* Footer */
-footer {
+.auth-links {
     text-align: center;
-    padding: 10px 0;
-    background: #004d00; /* Dark Green */
-    color: white;
+    margin-top: 20px;
+}
+
+.auth-links a {
+    color: #6610F2;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.auth-links a:hover {
+    color: #FD7E14;
 }
