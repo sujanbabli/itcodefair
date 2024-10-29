@@ -4,36 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/app_safeNT/css/styles.css">
-    <title>Safe NT</title>
+    <title>{% block title %}Safe NT{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <header class="header">
-        <div class="logo">Safe NT</div>
-        <div class="contact"><a href="#">Contact</a></div>
+<body class="bg-gray-100 h-screen flex flex-col justify-between">
+    <header class="bg-purple-800 text-white p-4 flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Safe NT</h1>
+        <div class="flex items-center space-x-4">
+            {% if user.is_authenticated %}
+                <p>{{ user.username }}</p>
+                <a href="{% url 'logout' %}" class="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300">Log Out</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Log In</a>
+            {% endif %}
+        </div>
     </header>
 
-    <main>
-        <h2 class="main-heading">Services We Provide</h2>
-            <div class="search-container">
-                <input type="text" placeholder="Search" class="search-input">
-                <i class="search-icon">🔍</i>
-            </div>
-            <div class="auth-links">
-                <a href="login.html">Login</a>
-                 <a href="signup.html">Sign Up</a>
-            </div>
-    </main>
+    <div class="container mx-auto p-4">
+        {% block content %}
+        {% endblock %}
+    </div>
 
-    <footer>
-        <div class="footer-logo">
-            <img src="static/app_safeNT/images/NTlogo.jpg" alt="Northern Territory Government Logo">
-        </div>
-        <p class="footer-text">©2024 Safe NT</p>
+    <footer class="bg-white text-center p-4">
+        <img src="{% static 'images/NTlogo.jpg' %}" alt="Logo" class="mx-auto mb-2" width="80">
+        <p class="text-gray-700">&copy; 2024 Safe NT</p>
     </footer>
-
-    <script src="static/app_safeNT/js/script.js"></script>
 </body>
 
 </html>
