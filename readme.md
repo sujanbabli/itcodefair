@@ -1,0 +1,1 @@
+" This project uses machine learning alogrithm to detect gestures for criminal activities if users give some signs to cctv camera and send it straight to medical services (ambulace for emergency) and police services."
