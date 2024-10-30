@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Safe NT{% endblock %}
+
+{% block content %}
+<main class="login-content">
+    <h2 class="login-heading text-2xl font-bold mb-4">Login In</h2>
+    
+    <form method="POST" class="login-form">
+        {% csrf_token %}
+        <label for="email">UserID / Email:</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Enter your password" required>
+
+        <button type="submit" class="login-button">Login</button>
+    </form>
+</main>
+{% endblock %}

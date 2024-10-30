@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - Safe NT{% endblock %}
+
+{% block content %}
+<main class="signup-content">
+    <h2 class="signup-heading text-2xl font-bold mb-4">Sign Up</h2>
+    
+    <form method="POST" class="signup-form">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="Enter your name" required>
+
+        <label for="phone">Phone No.:</label>
+        <input type="tel" name="phone" id="phone" placeholder="Enter your phone number" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+        <label for="role">Signing As:</label>
+        <select name="role" id="role" required>
+            <option value="User">User</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Police">Police</option>
+        </select>
+
+        <button type="submit" class="signup-button">Submit</button>
+    </form>
+</main>
+{% endblock %}

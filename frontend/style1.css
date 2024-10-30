@@ -1,0 +1,219 @@
+/* General styles for entire page */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    background-color: #f6f1f1;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    background-color: #ffffff;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+}
+
+.footer-text {
+    color: black;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #6610F2;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.contact a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.contact a:hover {
+    color: #FD7E14;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-list li {
+    margin: 0 15px;
+}
+
+.nav-list li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-list li a:hover {
+    color: #FD7E14;
+}
+
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    z-index: 1; /* Ensures dropdown is above other elements */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #6610F2;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    z-index: 10; /* Ensures dropdown is above other content */
+}
+
+.dropdown-content li {
+    padding: 8px 0;
+}
+
+.dropdown-content li a {
+    color: #ffffff;
+}
+
+.dropdown-content li a:hover {
+    color: #FD7E14;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    z-index: 10; /* Keeps dropdown on top */
+}
+
+/* Main Heading */
+.main-heading {
+    text-align: center;
+    margin-top: 50px;
+    color: #000000;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* Search Box */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 2px solid #000000;
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
+}
+
+/* Card Container Styles - 3 Cards in a Row */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 50px;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px) rotate(-2deg); /* Slight rotation on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    transition: transform 0.5s ease;
+}
+
+.card:hover img {
+    transform: scale(1.1); /* Zoom-in effect on hover */
+}
+
+.card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #6610F2;
+}
+
+.card p {
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.appointment-btn {
+    padding: 10px 20px;
+    background-color: #6610F2;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.appointment-btn:hover {
+    background-color: #FD7E14;
+    transform: scale(1.1); /* Button grows slightly */
+}
+
+/* Responsive Styles for Mobile */
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
