@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style1.css">
+    <title>Book Your Appointment - Safe NT</title>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">Safe NT</div>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="medical.html">Medical Services</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+        <div class="contact"><a href="#">Contact</a></div>
+    </header>
+
+    <main>
+        <h2 class="main-heading">Book Your Appointment</h2>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="step active">Doctor Selection & Your Details</div>
+            <div class="step">Booking Date & Time</div>
+            <div class="step">Booking Confirmation</div>
+        </div>
+
+        <!-- Selected Doctor Information -->
+        <section class="selected-doctor">
+            <!-- Update the heading with an id to replace text with the selected doctor's name -->
+            <h3 id="selected-doctor-name">Selected Doctor</h3>
+            <div class="doctor-card">
+                <div class="doctor-image">
+                    <img src="placeholder.jpg" alt="Doctor's Profile Picture">
+                </div>
+                <div class="doctor-info">
+                    <!-- Add an id to the name section for targeted updates -->
+                    <p><strong id="doctor-name">Dr. John Doe</strong></p>
+                    <p><strong>Qualification:</strong> BDS, MDS</p>
+                    <p><strong>Age:</strong> 40</p>
+                    <p><strong>Experience:</strong> 15 years</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Details Form -->
+        <section class="user-details">
+            <h3>Enter Your Details</h3>
+            <form action="submit_appointment.html" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone No.:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="problem">Your Problem:</label>
+                    <textarea id="problem" name="problem" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="document">Medical History/Document:</label>
+                    <input type="file" id="document" name="document">
+                </div>
+                <button type="submit" class="next-button">Next</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-logo">
+            <img src="NTlogo.jpg" alt="Northern Territory Government Logo">
+        </div>
+        <p class="footer-text">©2024 Safe NT</p>
+    </footer>
+
+    <!-- Include script.js to handle dynamic content -->
+    <script src="script.js"></script>
+</body>
+
+</html>

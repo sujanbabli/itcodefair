@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Date & Time - Safe NT</title>
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">Safe NT</div>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="medical.html">Medical Services</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+        <div class="contact"><a href="#">Contact</a></div>
+    </header>
+
+    <main>
+        <section class="page-heading">
+            <h2 class="main-heading">Book Your Appointment</h2>
+            <p class="subheading">Please select a date and time for your appointment with our medical specialists.</p>
+        </section>
+
+        <div class="progress-indicator">
+            <div class="step">Doctor Selection & Your Details</div>
+            <div class="step active">Booking Date & Time</div>
+            <div class="step">Booking Confirmation</div>
+        </div>
+
+        <section class="calendar-section">
+            <div class="date-picker">
+                <label for="appointment-date">Select Date:</label>
+                <input type="text" id="appointment-date" placeholder="Select a date" readonly>
+            </div>
+
+            <div class="time-selection">
+                <label for="time">Select Time:</label>
+                <select id="time" name="time">
+                    <option value="09:00">09:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="13:00">01:00 PM</option>
+                    <option value="14:00">02:00 PM</option>
+                    <option value="15:00">03:00 PM</option>
+                    <option value="16:00">04:00 PM</option>
+                </select>
+            </div>
+
+            <button id="next-button" class="next-button">Next</button>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="NTlogo.jpg" alt="Northern Territory Government Logo">
+        </div>
+        <p class="footer-text">©2024 Safe NT</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="script.js"></script>
+</body>
+</html>

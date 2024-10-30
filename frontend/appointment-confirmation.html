@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation - Safe NT</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">Safe NT</div>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="medical.html">Medical Services</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+        <div class="contact"><a href="#">Contact</a></div>
+    </header>
+
+    <main>
+        <!-- Page Heading and Confirmation Message -->
+        <section class="page-heading">
+            <h2 class="main-heading">Booking Confirmation</h2>
+            <p class="subheading">Thank you for booking your appointment with Safe NT. Here are the details of your appointment.</p>
+        </section>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="step">Doctor Selection & Your Details</div>
+            <div class="step">Booking Date & Time</div>
+            <div class="step active">Booking Confirmation</div>
+        </div>
+
+        <!-- Appointment Confirmation Details -->
+        <section class="confirmation-details">
+            <h3>Appointment Details</h3>
+            <div class="appointment-info">
+                <p><strong>Date:</strong> <span id="appointment-date">--</span></p>
+                <p><strong>Time:</strong> <span id="appointment-time">--</span></p>
+            </div>
+            <p class="confirmation-message">Please arrive 15 minutes early and bring any necessary documents.</p>
+            <button onclick="window.location.href='index.html'" class="back-home-btn">Back to Home</button>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-logo">
+            <img src="NTlogo.jpg" alt="Northern Territory Government Logo">
+        </div>
+        <p class="footer-text">©2024 Safe NT</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

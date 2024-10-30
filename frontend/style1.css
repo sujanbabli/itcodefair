@@ -204,6 +204,7 @@ footer {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
 }
 
 .appointment-btn:hover {
@@ -216,4 +217,363 @@ footer {
     .card-container {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+/* Progress Indicator Styles */
+.progress-indicator {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px auto;
+    max-width: 600px;
+    color: #6610F2;
+}
+
+.progress-indicator .step {
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ccc;
+}
+
+.progress-indicator .step.active {
+    color: #6610F2;
+}
+
+/* Selected Doctor Section */
+.selected-doctor {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selected-doctor h3 {
+    text-align: center;
+    color: #6610F2;
+}
+
+.doctor-card {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.doctor-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.doctor-info p {
+    margin: 5px 0;
+    color: #000000;
+}
+
+/* User Details Form */
+.user-details {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-details h3 {
+    text-align: center;
+    color: #6610F2;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    color: #000000;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #6610F2;
+    border-radius: 5px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #FD7E14;
+}
+
+.next-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6610F2;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+    background-color: #FD7E14;
+}
+
+/* Professional Heading Section */
+.page-heading {
+    text-align: center;
+    margin-top: 50px;
+    color: #000000;
+}
+
+.main-heading {
+    font-size: 32px;
+    color: #6610F2;
+    font-weight: bold;
+}
+
+.subheading {
+    font-size: 18px;
+    color: #555;
+    margin-top: 5px;
+}
+
+
+
+/* Doctors Section */
+.doctors-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 30px;
+}
+
+.doctor-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    width: 250px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.doctor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.doctor-image img {
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid #6610F2;
+}
+
+.doctor-info {
+    padding: 15px;
+}
+
+.doctor-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #6610F2;
+    margin-bottom: 5px;
+}
+
+.doctor-qualification {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.doctor-experience,
+.doctor-age {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Appointment Button */
+.appointment-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6610F2;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.appointment-btn:hover {
+    background-color: #FD7E14;
+    transform: scale(1.05);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .doctors-section {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Calendar Section Styling */
+.calendar-section {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.date-picker, .time-selection {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #000000;
+}
+
+.date-picker label, .time-selection label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#appointment-date, #time {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #6610F2;
+    border-radius: 5px;
+    outline: none;
+}
+
+#appointment-date:focus, #time:focus {
+    border-color: #FD7E14;
+}
+
+/* Styling for the Next Button */
+.next-button {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #6610F2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+    background-color: #FD7E14;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    color: #6610F2;
+}
+
+.progress-indicator .step {
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ccc;
+    padding: 0 15px;
+}
+
+.progress-indicator .step.active {
+    color: #6610F2;
+}
+
+.progress-indicator .step::before {
+    content: "●";
+    margin-right: 5px;
+}
+
+.progress-indicator .step + .step::before {
+    content: "→";
+    margin: 0 10px;
+    color: #ccc;
+}
+
+/* Page Heading */
+.page-heading {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.main-heading {
+    font-size: 32px;
+    color: #6610F2;
+    font-weight: bold;
+}
+
+.subheading {
+    font-size: 18px;
+    color: #555;
+    margin-top: 5px;
+}
+
+/* Confirmation Details Section */
+.confirmation-details {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.confirmation-details h3 {
+    color: #6610F2;
+    margin-bottom: 20px;
+}
+
+.appointment-info p {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #000;
+}
+
+.confirmation-message {
+    font-size: 16px;
+    color: #555;
+    margin-top: 20px;
+}
+
+/* Back to Home Button */
+.back-home-btn {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #6610F2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-home-btn:hover {
+    background-color: #FD7E14;
 }
