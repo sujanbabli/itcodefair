@@ -1,0 +1,266 @@
+/* Ensure the entire document takes up full height */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    background-color: #f6f1f1;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+/* Main container, grows to take available space */
+main {
+    flex: 1;
+}
+
+/* Footer stays at the bottom */
+footer {
+    background-color: #ffffff;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+}
+
+.footer-text {
+    color: black;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #6610F2;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Navbar styling */
+.navbar {
+    display: flex;
+}
+
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-list li {
+    position: relative;
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+
+.nav-list a:hover {
+    background-color: #FD7E14;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content li {
+    list-style: none;
+}
+
+.dropdown-content li a {
+    padding: 12px 16px;
+    display: block;
+    color: black;
+    font-weight: normal;
+}
+
+.dropdown-content li a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.contact a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.contact a:hover {
+    color: #FD7E14;
+}
+
+/* Main Heading Styles */
+.main-heading {
+    text-align: center;
+    margin-top: 100px;
+    color: #000000;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Search and Auth Links */
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-auth-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+}
+
+.auth-links {
+    text-align: right;
+}
+
+.auth-links a {
+    color: #6610F2;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: color 0.3s;
+}
+
+.auth-links a:hover {
+    color: #FD7E14;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 2px solid #000000;
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
+}
+
+.search-button {
+    padding: 11px;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    background-color: #FD7E14;
+}
+
+/* Auth Forms Styles */
+.auth-form {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #6610F2;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #6610F2;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-btn:hover {
+    background-color: #FD7E14;
+}
+
+.auth-form p {
+    text-align: center;
+    color: #000000;
+}
+
+.auth-form p a {
+    color: #6610F2;
+    text-decoration: none;
+}
+
+.auth-form p a:hover {
+    color: #FD7E14;
+}
+
+/* Centered Main Heading for Login/Signup Pages */
+.main-heading {
+    text-align: center;
+    margin-top: 20px;
+    color: #000000;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* Center the Login/Sign Up links */
+.auth-links {
+    display: flex;
+    justify-content: center; /* Centers the links horizontally */
+    margin-top: 20px;
+}
+
+.auth-links a {
+    color: #6610F2;
+    text-decoration: none;
+    margin: 0 15px; /* Spacing between the links */
+    transition: color 0.3s;
+}
+
+.auth-links a:hover {
+    color: #FD7E14;
+}
+
+
