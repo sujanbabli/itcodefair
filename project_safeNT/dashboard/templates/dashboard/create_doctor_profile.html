@@ -1,0 +1,44 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% load form_tags %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl"> <!-- Limit the width of the form -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+           
+            <!-- Doctor Profile Form -->
+            <div class="p-8">
+                <div class="mb-8 text-center">
+                    <h2 class="text-2xl font-bold text-gray-900">Create Doctor Profile</h2>
+                </div>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 gap-y-5"> <!-- Use a single column for better readability -->
+                        {% for field in form %}
+                            <div>
+                                <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                                    {{ field.label }}{% if field.field.required %} <span class="text-red-500">*</span>{% endif %}
+                                </label>
+                                {{ field|addclass:"w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent" }}
+                                {% if field.help_text %}
+                                    <p class="mt-1 text-xs text-gray-500">{{ field.help_text }}</p>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <div class="text-xs text-red-600">{{ field.errors }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit" class="w-full mt-8 py-2.5 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 ease-in-out flex items-center justify-center space-x-2">
+                        <i class="fas fa-user-md"></i> <span>Create Profile</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

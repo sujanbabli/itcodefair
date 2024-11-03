@@ -1,0 +1,30 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<div class="flex items-center justify-center min-h-500 bg-grey-50 py-8">
+    <div class="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8">
+        <h2 class="text-center text-3xl font-bold text-gray-800 mb-6">Appointment Details</h2>
+        
+        <div class="mb-4">
+            <h3 class="font-semibold text-gray-700">Doctor:</h3>
+            <p>{{ appointment.doctor.name }}</p>
+        </div>
+        <div class="mb-4">
+            <h3 class="font-semibold text-gray-700">Date:</h3>
+            <p>{{ appointment.appointment_date }}</p>
+        </div>
+        <div class="mb-4">
+            <h3 class="font-semibold text-gray-700">Time:</h3>
+            <p>{{ appointment.appointment_time }}</p>
+        </div>
+        <div class="mb-4">
+            <h3 class="font-semibold text-gray-700">Prescription:</h3>
+            <p>{{ appointment.prescription }}</p>
+        </div>
+        <div class="mb-4">
+            <h3 class="font-semibold text-gray-700">Notes:</h3>
+            <p>{{ appointment.notes }}</p>
+        </div>
+        <a href="{% url 'user_dashboard' %}" class="text-blue-500 hover:underline">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

@@ -14,39 +14,36 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
+from django.shortcuts import render
 from django.urls import path
-from app_safeNT import views
+from django.urls.conf import include
+from django.conf.urls import handler404, handler500, handler403
+from django.conf.urls.static import static
+
+
+
+def custom_404(request, exception):
+    return render(request, 'errors/404.html', status=404)
+
+def custom_500(request):
+    return render(request, 'errors/500.html', status=500)
+
+def custom_403(request, exception):
+    return render(request, 'errors/403.html', status=403)
+
+handler404 = custom_404
+handler500 = custom_500
+handler403 = custom_403
 
 urlpatterns = [
-    path('', views.home, name='home'),
     path('admin/', admin.site.urls),
-    
-    # Authentication Routes
-    path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout'),
-    path('register/', views.register, name='register'),
-    
-    # Admin Routes
-    path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
-    path('admin/create_user/', views.create_user, name='create_user'),
-    path('admin/delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
-    
-    # Doctor Routes
-    path('doctor/dashboard/', views.doctor_dashboard, name='doctor_dashboard'),
-    path('doctor/patients/', views.view_patients, name='view_patients'),
-    path('doctor/appointments/', views.view_appointments, name='view_appointments'),
-    path('doctor/availability/', views.update_availability, name='update_availability'),
-    
-    # Patient Routes
-    path('patients/doctors/', views.view_doctors, name='view_doctors'),
-    path('patients/request_appointment/<int:doctor_id>/', views.request_appointment, name='request_appointment'),
-    path('patients/history/', views.view_medical_history, name='view_medical_history'),
-    
-    # Police Routes
-    path('police/dashboard/', views.police_dashboard, name='police_dashboard'),
-    path('police/cctv/', views.view_cctv, name='view_cctv'),
-    
-    # General Routes
-    path('blank/', views.blank, name='blank'),
+    path('', include('accounts.urls')),
+    path('dashboard/', include('dashboard.urls')),
+    path("", include('handgesture_app.urls')),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

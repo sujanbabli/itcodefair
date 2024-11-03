@@ -1,0 +1,109 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-gray-50 py-8">
+    <div class="w-full max-w-3xl bg-white rounded-xl shadow-lg p-8">
+        <!-- Heading -->
+        <h2 class="text-center text-3xl font-bold text-gray-800 mb-6">Emergency Camera Service</h2>
+        <p class="text-center text-gray-600 mb-8">Use hand gestures to send emergency requests to the police administration.</p>
+        
+        <!-- Video Stream -->
+        <div class="relative w-full h-96">
+            <video id="video" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg shadow-md mb-4" autoplay></video>
+            <canvas id="canvas" class="absolute top-0 left-0 w-full h-full object-cover rounded-lg"></canvas>
+        </div>
+        
+        <!-- Instructions -->
+        <p class="text-center text-sm text-gray-500 mt-4">Ensure your hand gestures are visible to the camera for accurate detection.</p>
+
+        <!-- Notification -->
+        <div id="notification" class="mt-4 text-center text-green-600 hidden">
+            Your emergency request has been sent successfully.
+        </div>
+    </div>
+</div>
+
+<!-- Include Handtrack.js -->
+<script src="https://cdn.jsdelivr.net/npm/handtrackjs@latest/dist/handtrack.min.js"></script>
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const notification = document.getElementById('notification');
+
+    let openDetected = false;
+    let closedDetected = false;
+    let imageCaptured = false;  // Flag to ensure we only capture once per detection
+
+    // Load the handtrack.js model
+    handTrack.load().then(model => {
+        // Start the video stream
+        handTrack.startVideo(video).then(status => {
+            if (status) {
+                // Detect hands in the video stream
+                setInterval(() => {
+                    model.detect(video).then(predictions => {
+                        // Clear the canvas
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        // Draw the video frame
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                        // Render the predictions
+                        model.renderPredictions(predictions, canvas, context, video);
+
+                        // Check for open and closed hands
+                        predictions.forEach(prediction => {
+                            if (prediction.label === 'open') {
+                                openDetected = true;
+                            } else if (prediction.label === 'closed') {
+                                closedDetected = true;
+                            }
+                        });
+
+                        // If both gestures are detected, send an emergency request
+                        if (openDetected && closedDetected && !imageCaptured) {
+                            imageCaptured = true;  // Set flag to prevent multiple captures
+                            const imageData = canvas.toDataURL('image/png');  // Capture image
+
+                            fetch('/hand-gesture/', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRFToken': '{{ csrf_token }}'
+                                },
+                                body: JSON.stringify({ 
+                                    reason: 'Hand gesture detected: Open and Closed Fist',
+                                    image: imageData  // Send the captured image
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    // Redirect to the user dashboard
+                                    window.location.href = data.redirect_url;
+                                } else {
+                                    notification.textContent = 'An error occurred. Please try again.';
+                                    notification.classList.remove('hidden');
+                                    notification.classList.add('text-red-600');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                notification.textContent = 'An error occurred. Please try again.';
+                                notification.classList.remove('hidden');
+                                notification.classList.add('text-red-600');
+                            });
+
+                            // Reset detection flags
+                            openDetected = false;
+                            closedDetected = false;
+                            // Reset image capture flag after a delay to prevent rapid re-captures
+                            setTimeout(() => {
+                                imageCaptured = false;
+                            }, 2000);  // 2-second cooldown
+                        }
+                    });
+                }, 100);  // Keep original 100ms interval for smooth video
+            }
+        });
+    });
+</script>
+{% endblock %}

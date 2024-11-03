@@ -1,0 +1,101 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-grey-50 py-8">
+    <div class="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8">
+        <!-- Heading -->
+        <h2 class="text-center text-3xl font-bold text-gray-800 mb-6">User Dashboard</h2>
+        <p class="text-center text-gray-600 mb-4">Welcome, {{ user.username }}! Select a service or view your appointments below.</p>
+
+        <!-- Service Options -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
+
+            <a href={% url "my_emergency_requests" %} class="block bg-red-50 hover:bg-red-100 rounded-lg p-6 shadow-md transition duration-200 ease-in-out transform hover:scale-105">
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-red-500 text-white rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-file-alt text-2xl"></i> <!-- Font Awesome icon for security -->
+                    </div>
+                    <h3 class="text-lg font-semibold text-blue-600">My Emergency Service Requests</h3>
+                    <p class="text-sm text-gray-500 mt-2 text-center">Emergency Requests Sent to Police Administration.</p>
+                </div>
+            </a>
+
+            <a href={% url "hand_gesture" %} class="block bg-yellow-10 hover:bg-yellow-100 rounded-lg p-6 shadow-md transition duration-200 ease-in-out transform hover:scale-105">
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-yellow-500 text-white rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-camera-alt text-2xl"></i> <!-- Font Awesome icon for security -->
+                    </div>
+                    <h3 class="text-lg font-semibold text-blue-600">Emergency Camera Service</h3>
+                    <p class="text-sm text-gray-500 mt-2 text-center">Provide Hand Gesture for Sending Emergency Request to Police Administration.</p>
+                </div>
+            </a>
+          
+            <a href={% url 'report_incident' %} class="block bg-blue-50 hover:bg-blue-100 rounded-lg p-6 shadow-md transition duration-200 ease-in-out transform hover:scale-105">
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-2xl"></i> 
+                    </div>
+                    <h3 class="text-lg font-semibold text-blue-600">Security Services</h3>
+                    <p class="text-sm text-gray-500 mt-2 text-center">Explore our range of security options designed to keep you safe and secure.</p>
+                </div>
+            </a>
+            
+            <!-- Medical Services Card -->
+            <a href="{% url 'medical_services' %}" class="block bg-green-50 hover:bg-green-100 rounded-lg p-6 shadow-md transition duration-200 ease-in-out transform hover:scale-105">
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-heartbeat text-2xl"></i> 
+                    </div>
+                    <h3 class="text-lg font-semibold text-green-600">Medical Services</h3>
+                    <p class="text-sm text-gray-500 mt-2 text-center">Access medical services and assistance whenever you need it.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Appointments Table -->
+        <div class="overflow-x-auto mt-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Your Appointments</h3>
+            <table class="min-w-full bg-white shadow-md rounded-lg">
+                <thead>
+                    <tr class="bg-gray-100 border-b">
+                        <th class="p-4 text-left text-gray-600 font-semibold">Doctor</th>
+                        <th class="p-4 text-left text-gray-600 font-semibold">Date</th>
+                        <th class="p-4 text-left text-gray-600 font-semibold">Time</th>
+                        <th class="p-4 text-left text-gray-600 font-semibold">Status</th>
+                        <th class="p-4 text-left text-gray-600 font-semibold">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                        <tr class="border-b">
+                            <td class="p-4"><span>Dr. </span>{{ appointment.doctor.name }}</td>
+                            <td class="p-4">{{ appointment.appointment_date }}</td>
+                            <td class="p-4">{{ appointment.appointment_time }}</td>
+                            <td class="p-4">
+                                <span class="{% if appointment.status == 'completed' %}text-green-500{% elif appointment.status == 'cancelled' %}text-red-500{% else %}text-yellow-500{% endif %}">
+                                    {{ appointment.status|title }}
+                                </span>
+                            </td>
+                            <td class="p-4 flex space-x-4">
+                                {% if appointment.status == 'completed' %}
+                                    <a href="{% url 'user_view_appointment' appointment.id %}" class="text-blue-500 hover:underline">View</a>
+                                {% elif appointment.status != 'cancelled' %}
+                                    <form action="{% url 'user_cancel_appointment' appointment.id %}" method="post" onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
+                                        {% csrf_token %}
+                                        <button type="submit" class="text-red-500 hover:underline">Cancel</button>
+                                    </form>
+                                {% else %}
+                                    <span class="text-gray-500">No Actions</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center p-4 text-gray-500">No appointments found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

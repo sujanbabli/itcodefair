@@ -1,0 +1,119 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50 py-16">
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow-lg p-10">
+
+        <!-- Page Heading -->
+        <section class="text-center mb-8 cursor-pointer" onclick="showStep(1)">
+            <h2 class="text-3xl font-bold text-blue-800 mb-4">Book Your Appointment</h2>
+            <p class="text-gray-600">Please provide your details and select a date and time for your appointment.</p>
+        </section>
+
+        <!-- Progress Indicator -->
+        <div class="flex justify-between items-center mb-10">
+            <div id="stepIndicator1" class="step flex-1 text-center py-2 font-semibold text-blue-600 border-b-4 border-blue-600 cursor-pointer" onclick="showStep(1)">Doctor Selection & Your Details</div>
+            <div id="stepIndicator2" class="step flex-1 text-center py-2 font-semibold text-gray-400 border-b-4 border-gray-200 cursor-pointer" onclick="showStep(2)">Booking Date & Time</div>
+        </div>
+
+        <!-- Form Sections -->
+        <form action="{% url 'book_appointment' doctor.id %}" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Step 1: Doctor and User Details -->
+            <section id="step1" class="step-section">
+                <!-- Doctor Information -->
+                <section class="selected-doctor flex items-center mb-8">
+                    <div class="w-1/3">
+                        <img src="{{ doctor.profile_picture.url }}" alt="{{ doctor.get_full_name }}" class="w-full h-48 object-cover rounded-lg shadow-md">
+                    </div>
+                    <div class="w-2/3 pl-6">
+                        <h3 class="text-2xl font-semibold text-blue-700">{{ doctor.get_full_name }}</h3>
+                        <p class="text-gray-600"><strong>Qualification:</strong> {{ doctor.qualification }}</p>
+                        <p class="text-gray-600"><strong>Age:</strong> {{ doctor.age }}</p>
+                        <p class="text-gray-600"><strong>Experience:</strong> {{ doctor.experience_years }} years</p>
+                        <p class="text-gray-600"><strong>Consultation Fee:</strong> ${{ doctor.consultation_fee }}</p>
+                    </div>
+                </section>
+
+                <!-- User Details -->
+                <div class="form-group mb-4">
+                    <label for="name" class="block text-gray-700 font-medium mb-2">Name:</label>
+                    <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="phone" class="block text-gray-700 font-medium mb-2">Phone No.:</label>
+                    <input type="tel" id="phone" name="phone" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="age" class="block text-gray-700 font-medium mb-2">Age:</label>
+                    <input type="number" id="age" name="age" min="0" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="problem" class="block text-gray-700 font-medium mb-2">Your Problem:</label>
+                    <textarea id="problem" name="problem" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <div class="form-group mb-4">
+                    <label for="history" class="block text-gray-700 font-medium mb-2">Medical History:</label>
+                    <textarea id="history" name="history" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between">
+                    <button type="button" onclick="showStep(2)" class="w-full py-3 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 transition duration-300">Next</button>
+                </div>
+            </section>
+
+            <!-- Step 2: Booking Date and Time -->
+            <section id="step2" class="step-section hidden">
+                <!-- Date and Time Selection -->
+                <div class="form-group mb-4">
+                    <label for="appointment-date" class="block text-gray-700 font-medium mb-2">Select Date:</label>
+                    <input type="date" id="appointment-date" name="appointment_date" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="time" class="block text-gray-700 font-medium mb-2">Select Time:</label>
+                    <select id="time" name="time" required class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        {% for slot in available_slots %}
+                            <option value="{{ slot }}">{{ slot }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex justify-between gap-4 mt-6">
+                    <button type="button" onclick="showStep(1)" class="w-1/2 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition duration-300 shadow-lg">Back</button>
+                    <button type="submit" class="w-1/2 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-300 shadow-lg">Book Appointment</button>
+                </div>
+            </section>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript to Toggle Steps and Update Indicator -->
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('appointment-date').setAttribute('min', today);
+    });
+
+    function showStep(step) {
+        // Hide all steps
+        document.querySelectorAll('.step-section').forEach(section => section.classList.add('hidden'));
+        // Show the selected step
+        document.getElementById(`step${step}`).classList.remove('hidden');
+
+        // Update Progress Indicator
+        document.querySelectorAll('.step').forEach((indicator, index) => {
+            if (index + 1 === step) {
+                indicator.classList.replace('text-gray-400', 'text-blue-600');
+                indicator.classList.replace('border-gray-200', 'border-blue-600');
+            } else {
+                indicator.classList.replace('text-blue-600', 'text-gray-400');
+                indicator.classList.replace('border-blue-600', 'border-gray-200');
+            }
+        });
+    }
+</script>
+{% endblock %}

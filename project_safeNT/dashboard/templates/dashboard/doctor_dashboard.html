@@ -1,0 +1,355 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <h2 class="text-center text-3xl font-bold mb-8">Doctor Dashboard</h2>
+    
+    <!-- Stats Bar -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-blue-100 p-4 rounded-lg text-center">
+            <h4 class="text-lg font-bold text-blue-600">Total Patients</h4>
+            <p class="text-2xl font-semibold">{{ total_patients }}</p>
+        </div>
+        <div class="bg-green-100 p-4 rounded-lg text-center">
+            <h4 class="text-lg font-bold text-green-600">Today's Appointments</h4>
+            <p class="text-2xl font-semibold">{{ today_appointments }}</p>
+        </div>
+        <div class="bg-yellow-100 p-4 rounded-lg text-center">
+            <h4 class="text-lg font-bold text-yellow-600">This Week</h4>
+            <p class="text-2xl font-semibold">{{ this_week }}</p>
+        </div>
+        <div class="bg-purple-100 p-4 rounded-lg text-center">
+            <h4 class="text-lg font-bold text-purple-600">Completion Rate</h4>
+            <p class="text-2xl font-semibold">{{ completion_rate }}%</p>
+        </div>
+    </div>
+
+    <!-- Pending Appointments Section -->
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+        <h3 class="text-xl font-semibold text-blue-700 mb-4">Pending Appointments</h3>
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Patient Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Problem</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for appointment in pending_appointments %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ appointment.patient.name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ appointment.appointment_date|date:"Y-m-d" }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ appointment.appointment_time|time:"H:i A" }}</td>
+                        <td class="px-6 py-4">
+                            <p class="truncate max-w-xs" title="{{ appointment.problem_description }}">
+                                {{ appointment.problem_description }}
+                            </p>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <button 
+                                data-action="approve"
+                                data-appointment-id="{{ appointment.appointment_id }}"
+                                class="bg-green-500 text-white px-3 py-1 rounded-md mr-2 hover:bg-green-600">
+                                Approve
+                            </button>
+                            <button 
+                                data-action="cancel"
+                                data-appointment-id="{{ appointment.appointment_id }}"
+                                class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600">
+                                Cancel
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                            No pending appointments
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Upcoming Appointments Section -->
+    <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+        <h3 class="text-xl font-semibold text-green-700 mb-4">Upcoming Appointments</h3>
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Patient Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Time</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Problem</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for appointment in upcoming_appointments %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ appointment.patient.name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ appointment.appointment_date|date:"Y-m-d" }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ appointment.appointment_time|time:"H:i A" }}</td>
+                        <td class="px-6 py-4">
+                            <p class="truncate max-w-xs" title="{{ appointment.problem_description }}">
+                                {{ appointment.problem_description }}
+                            </p>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                Confirmed
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <button 
+                                data-action="complete"
+                                data-appointment-id="{{ appointment.appointment_id }}"
+                                class="bg-green-500 text-white px-3 py-1 rounded-md mr-2 hover:bg-green-600">
+                                Complete
+                            </button>
+                            <button 
+                                data-action="cancel"
+                                data-appointment-id="{{ appointment.appointment_id }}"
+                                class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600">
+                                Cancel
+                            </button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                            No upcoming appointments
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for completing appointment -->
+<div id="completeAppointmentModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Complete Appointment</h3>
+            <form id="completeAppointmentForm" class="space-y-4">
+                <input type="hidden" id="appointmentId" name="appointmentId" value="">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Prescription</label>
+                    <textarea 
+                        name="prescription" 
+                        rows="4" 
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        required></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Notes</label>
+                    <textarea 
+                        name="notes" 
+                        rows="3" 
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button 
+                        type="button" 
+                        id="modalCancelButton"
+                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300">
+                        Cancel
+                    </button>
+                    <button 
+                        type="submit" 
+                        class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        Complete Appointment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Global variables
+        const modal = document.getElementById('completeAppointmentModal');
+        const form = document.getElementById('completeAppointmentForm');
+        const modalCancelButton = document.getElementById('modalCancelButton');
+        let isProcessing = false;
+    
+        // Get CSRF token
+        function getCsrfToken() {
+            const name = 'csrftoken';
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white ${bgColor} shadow-lg z-50`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+    
+        // Handle all button clicks
+        document.addEventListener('click', async function(e) {
+            const button = e.target.closest('button[data-action]');
+            if (!button) return;
+    
+            const action = button.dataset.action;
+            const appointmentId = button.dataset.appointmentId;
+    
+            if (action === 'complete') {
+                openCompleteModal(appointmentId);
+            } else if (action === 'approve' || action === 'cancel') {
+                await handleAppointment(action, appointmentId);
+            }
+        });
+    
+        // Handle appointment actions (approve/cancel)
+        async function handleAppointment(action, appointmentId) {
+            if (isProcessing || !confirm(`Are you sure you want to ${action} this appointment?`)) return;
+    
+            isProcessing = true;
+            const button = document.querySelector(`button[data-appointment-id="${appointmentId}"]`);
+            if (button) button.disabled = true;
+    
+            try {
+                const response = await fetch(`/dashboard/doctors/appointment/${appointmentId}/${action}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCsrfToken(),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({}) // Send empty object if no data needed
+                });
+    
+                // Check if response is JSON
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Server returned non-JSON response');
+                }
+    
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showNotification(data.message || `Appointment ${action}ed successfully!`, 'success');
+                    setTimeout(() => window.location.reload(), 1000);
+                } else {
+                    throw new Error(data.message || `Failed to ${action} appointment`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification(error.message || 'An error occurred', 'error');
+            } finally {
+                isProcessing = false;
+                if (button) button.disabled = false;
+            }
+        }
+    
+        // Complete appointment form submission
+        form?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            if (isProcessing) return;
+    
+            isProcessing = true;
+            const submitButton = form.querySelector('button[type="submit"]');
+            if (submitButton) submitButton.disabled = true;
+    
+            try {
+                // Create FormData and add appointment ID
+                const formData = new FormData(form);
+                const appointmentId = document.getElementById('appointmentId').value;
+    
+                // Convert FormData to JSON object
+                const jsonData = {};
+                formData.forEach((value, key) => {
+                    jsonData[key] = value;
+                });
+    
+                const response = await fetch(`/dashboard/doctors/appointment/${appointmentId}/update/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCsrfToken(),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'same-origin',
+                    body: JSON.stringify(jsonData)
+                });
+    
+                // Check if response is JSON
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error('Server returned non-JSON response');
+                }
+    
+                const data = await response.json();
+                
+                if (response.ok) {
+                    closeCompleteModal();
+                    showNotification('Appointment completed successfully!', 'success');
+                    setTimeout(() => window.location.reload(), 1000);
+                } else {
+                    throw new Error(data.message || 'Failed to complete appointment');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification(error.message || 'An error occurred', 'error');
+            } finally {
+                isProcessing = false;
+                if (submitButton) submitButton.disabled = false;
+            }
+        });
+    
+        // Modal functions
+        function openCompleteModal(appointmentId) {
+            document.getElementById('appointmentId').value = appointmentId;
+            modal.classList.remove('hidden');
+        }
+    
+        function closeCompleteModal() {
+            modal.classList.add('hidden');
+            form.reset();
+        }
+    
+        modalCancelButton?.addEventListener('click', closeCompleteModal);
+    
+        modal?.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeCompleteModal();
+            }
+        });
+    
+        window.openCompleteModal = openCompleteModal;
+        window.closeCompleteModal = closeCompleteModal;
+    });
+   
+</script>
+{% endblock %}
